@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+  backend:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__EmployeeContext=Server=database,1433;Database=loadresourcetest;User Id=sa;Password=Pass@word

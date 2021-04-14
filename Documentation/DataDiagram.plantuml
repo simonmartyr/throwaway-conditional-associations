@@ -1,0 +1,24 @@
+@startuml
+class Employee {
+  int Id
+  String Name
+  String Age
+  String PetName
+}
+
+class Contract {
+  int Id
+  DateTime StartDate
+  DateTime EndDate
+  Bool Active
+}
+
+class Secret {
+  int Id
+  String Secret
+  bool IsKnown
+}
+
+Employee ||-|| Contract : Active Contract
+Employee ||--|| Secret : Dark Secret
+@enduml
