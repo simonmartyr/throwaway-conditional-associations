@@ -4,9 +4,9 @@ Exploring ideas for how to include associations within a RESTful design.
 
 ## The Problem
 
-When designing a RESTful API we want to provide a clean API that provides everything that we deem a user will need. Typically providing the root information for a resource can be sufficient, however different implementations may have different requirements depending on the view they are trying to provide.
+When designing a RESTful API we want to provide a clean API that provides everything that we deem a user will need. Typically providing the root information for a resource can be sufficient, however different implementations have different requirements depending on the view they are trying to provide.
 
-Lets assume the following data model:
+Lets consider the following data model:
 
 ![dataDiagram](Documentation/DataDiagram.png)
 
@@ -34,7 +34,7 @@ Example JSONs
 }
 ```
 
-The two resources are not aware of each other. 
+The two resources are not aware of each other.
 
 ### Alternative
 
@@ -55,7 +55,7 @@ It could be appealing to simply add all nested relations without any considerati
 }
 ```
 
-And many cases this makes a lot of sense, as maybe the two resources are tightly coupled and should stick together. However this might not be the case with more complex objects which have multiple associations, where you would really feel the impact including all those relationships.
+And in some cases this could make sense, maybe the two resources are tightly coupled and should stick together. However this might not be the case with more complex objects which contain multiple associations, where you would really feel the impact including all those relationships.
 
 ## The Idea
 
