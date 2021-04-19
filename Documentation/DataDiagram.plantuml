@@ -3,7 +3,6 @@ class Employee {
   int Id
   String Name
   String Age
-  String PetName
 }
 
 class Contract {
@@ -19,6 +18,14 @@ class Secret {
   bool IsKnown
 }
 
+class Pet {
+  int Id
+  String Name
+  int Age
+  bool Favorite
+}
+
 Employee ||-|| Contract : Active Contract
 Employee ||--|| Secret : Dark Secret
+Employee ||--|{ Pet : Pets
 @enduml

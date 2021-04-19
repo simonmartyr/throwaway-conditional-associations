@@ -11,7 +11,6 @@ namespace LoadResourceTest.DTOs
     public int Age { get; set; }
     public ContractDto ActiveContract { get; set; }
     public SecretDto Secret { get; set; }
-
-    public delegate EmployeeDto Func<Employee, EmployeeDto>(Employee employee, bool contracts);
+    public PetDto FavoritePet { get; set; }
   }
 }

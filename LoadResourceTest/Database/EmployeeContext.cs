@@ -9,6 +9,7 @@ namespace LoadResourceTest.Database
     public DbSet<Employee> Employees { get; set; }
     public DbSet<BiggestSecret> Secrets { get; set; }
     public DbSet<Contract> Contracts { get; set; }
+    public DbSet<Pet> Pets { get; set; }
     public EmployeeContext(DbContextOptions<EmployeeContext> options) : base(options)
     {
     }
@@ -24,6 +25,11 @@ namespace LoadResourceTest.Database
           .HasOne(b => b.Secret)
           .WithOne(i => i.Employee)
           .HasForeignKey<BiggestSecret>(b => b.EmployeeId);
+
+      modelBuilder.Entity<Employee>()
+          .HasMany(b => b.Pets)
+          .WithOne(i => i.Employee)
+          .HasForeignKey(b => b.EmployeeId);
     }
 
 

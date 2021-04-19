@@ -33,12 +33,12 @@ namespace LoadResourceTest.Controllers
     public async Task<EmployeeDto> GetAgent(int id, [FromQuery] Includer includer, CancellationToken cancellationToken = default)
     {
       var includes = includer.GetIncludesParsed();
+      var includeContract = includes.Contains(nameof(EmployeeDto.ActiveContract));
+      var favoritePet = includes.Contains(nameof(EmployeeDto.FavoritePet));
+      var includeSecrets = includes.Contains(nameof(EmployeeDto.Secret));
 
-      var includeContract = includes.Contains(nameof(Employee.ActiveContract));
-      //agent has permission to view this
-      var includeSecrets = includes.Contains(nameof(Employee.Secret));
       var baseQuery = _dbContext.Employees
-      .ProjectTo<EmployeeDto>(_mapper.ConfigurationProvider, new { includeContract });
+      .ProjectTo<EmployeeDto>(_mapper.ConfigurationProvider, new { includeContract, favoritePet, includeSecrets });
 
       return await baseQuery.FirstAsync(x => x.Id == id);
     }

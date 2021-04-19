@@ -55,6 +55,19 @@ namespace LoadResourceTest
             {
               StartDate = DateTimeOffset.UtcNow.AddYears(-100),
               EndDate = DateTimeOffset.UtcNow.AddYears(1000)
+            },
+            Pets = new List<Pet>()
+            {
+              new Pet{
+                Name = "George",
+                Age = 55,
+                Favorite = false
+              },
+              new Pet{
+                Name = "Barry",
+                Age = 22,
+                Favorite = true
+              }
             }
           };
           context.Add(kevin);

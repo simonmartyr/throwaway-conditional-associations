@@ -2,13 +2,13 @@ using System.Collections.Generic;
 
 namespace LoadResourceTest.Entities
 {
-  public class Employee
+  public class Pet
   {
     public int Id { get; set; }
     public string Name { get; set; }
     public int Age { get; set; }
-    public Contract ActiveContract { get; set; }
-    public BiggestSecret Secret { get; set; }
-    public ICollection<Pet> Pets { get; set; }
+    public bool Favorite { get; set; }
+    public Employee Employee { get; set; }
+    public int EmployeeId { get; set; }
   }
 }

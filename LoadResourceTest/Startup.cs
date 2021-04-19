@@ -36,7 +36,11 @@ namespace LoadResourceTest
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "LoadResourceTest", Version = "v1" });
       });
-      services.AddAutoMapper(typeof(EmployeeProfile));
+      services.AddAutoMapper(
+      typeof(EmployeeProfile),
+      typeof(ContractProfile),
+      typeof(PetProfile),
+      typeof(SecretProfile));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
