@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using LoadResourceTest.Entities;
 
 namespace LoadResourceTest.DTOs
 {
@@ -9,5 +11,7 @@ namespace LoadResourceTest.DTOs
     public int Age { get; set; }
     public ContractDto ActiveContract { get; set; }
     public SecretDto Secret { get; set; }
+
+    public delegate EmployeeDto Func<Employee, EmployeeDto>(Employee employee, bool contracts);
   }
 }
