@@ -8,7 +8,14 @@ namespace LoadResourceTest.Controllers
   {
     [DataMember]
     public string Includes { get; set; } = "";
-    public List<string> GetIncludesParsed() =>
-      Includes.Split(",", System.StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()).ToList();
+    private List<string> ParsedIncludes { get; set; }
+    public List<string> GetIncludesParsed()
+    {
+      return Includes.Split(",", System.StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim()).ToList();
+    }
+    public bool IncludesContains(string term)
+    {
+      return GetIncludesParsed().Contains(term.ToUpper());
+    }
   }
 }

@@ -1,5 +1,6 @@
 using LoadResourceTest.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace LoadResourceTest.Database
 {
@@ -10,8 +11,10 @@ namespace LoadResourceTest.Database
     public DbSet<BiggestSecret> Secrets { get; set; }
     public DbSet<Contract> Contracts { get; set; }
     public DbSet<Pet> Pets { get; set; }
-    public EmployeeContext(DbContextOptions<EmployeeContext> options) : base(options)
+    private ILoggerFactory _logger { get; set; }
+    public EmployeeContext(DbContextOptions<EmployeeContext> options, ILoggerFactory factory) : base(options)
     {
+      _logger = factory;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,6 +33,12 @@ namespace LoadResourceTest.Database
           .HasMany(b => b.Pets)
           .WithOne(i => i.Employee)
           .HasForeignKey(b => b.EmployeeId);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+      base.OnConfiguring(optionsBuilder);
+      optionsBuilder.UseLoggerFactory(_logger);
     }
 
 

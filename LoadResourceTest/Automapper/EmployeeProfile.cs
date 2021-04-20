@@ -2,6 +2,7 @@ using System.Linq;
 using AutoMapper;
 using LoadResourceTest.DTOs;
 using LoadResourceTest.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace LoadResourceTest.Automapper
 {
@@ -9,18 +10,16 @@ namespace LoadResourceTest.Automapper
   {
     public EmployeeProfile()
     {
-      bool includeContract = false;
-      bool favoritePet = false;
-      bool includeSecrets = false;
-
       CreateMap<Employee, EmployeeDto>()
-        .ForMember(x => x.Secret, opt => opt.MapFrom(x => includeSecrets ? x.Secret : null))
-        .ForMember(x => x.ActiveContract, opt => opt.MapFrom(x => includeContract ? x.ActiveContract : null))
-        .ForMember(x => x.FavoritePet, opt => opt.MapFrom(x =>
-        favoritePet ?
-          x.Pets.First(c => c.Favorite)
-          : null
-        ));
+      .ForMember(x => x.ActiveContract, opt => opt.ExplicitExpansion())
+      .ForMember(x => x.Secret, opt => opt.ExplicitExpansion())
+      .ForMember(x => x.FavoritePet, opt => opt.ExplicitExpansion())
+      .ForMember(x => x.FavoritePet, opt => opt.MapFrom(x => x.Pets.First(j => j.Favorite)));
     }
+  }
+
+  public static class AutomapperStatics
+  {
+    public static BiggestSecret Thing = new BiggestSecret();
   }
 }

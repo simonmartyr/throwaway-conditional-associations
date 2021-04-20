@@ -15,9 +15,10 @@ namespace LoadResourceTest.Database
     private static IServiceCollection ConfigureEmployeeDatabaseSqlServer(this IServiceCollection services, IConfiguration configuration)
     {
       return services
-        .AddDbContextPool<EmployeeContext>(options =>
+        .AddDbContext<EmployeeContext>(options =>
           options.UseSqlServer(configuration.GetConnectionString("EmployeeContext"),
-            sqlOptions => sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null)));
+            sqlOptions => sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null))
+            .EnableSensitiveDataLogging());
     }
   }
 }

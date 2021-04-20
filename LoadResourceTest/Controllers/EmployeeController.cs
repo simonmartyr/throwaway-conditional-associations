@@ -29,17 +29,12 @@ namespace LoadResourceTest.Controllers
       _mapper = mapper;
     }
 
-    [HttpGet("{id}")]
+    [HttpPost("{id}")]
     public async Task<EmployeeDto> GetAgent(int id, [FromQuery] Includer includer, CancellationToken cancellationToken = default)
     {
       var includes = includer.GetIncludesParsed();
-      var includeContract = includes.Contains(nameof(EmployeeDto.ActiveContract));
-      var favoritePet = includes.Contains(nameof(EmployeeDto.FavoritePet));
-      var includeSecrets = includes.Contains(nameof(EmployeeDto.Secret));
-
       var baseQuery = _dbContext.Employees
-      .ProjectTo<EmployeeDto>(_mapper.ConfigurationProvider, new { includeContract, favoritePet, includeSecrets });
-
+      .ProjectTo<EmployeeDto>(_mapper.ConfigurationProvider, null, includes.ToArray());
       return await baseQuery.FirstAsync(x => x.Id == id);
     }
   }
