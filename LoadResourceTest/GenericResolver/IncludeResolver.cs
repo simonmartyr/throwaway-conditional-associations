@@ -13,7 +13,7 @@ namespace LoadResourceTest.GenericResolver
       Includes = getAttrs();
     }
 
-    public List<Expression<Func<T, object>>> resolve(string[] list)
+    public List<Expression<Func<T, object>>> Resolve(string[] list)
     {
       var toReturn = new List<Expression<Func<T, object>>>();
       foreach (var i in list)

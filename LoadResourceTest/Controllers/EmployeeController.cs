@@ -36,7 +36,7 @@ namespace LoadResourceTest.Controllers
     public async Task<EmployeeDto> GetAgent(int id, [FromQuery] Includer includer, CancellationToken cancellationToken = default)
     {
       var includes = includer.IncludesArray;
-      var toInclude = _resolver.resolve(includes);
+      var toInclude = _resolver.Resolve(includes);
       var baseQuery = _dbContext.Employees
       .ProjectTo<EmployeeDto>(_mapper.ConfigurationProvider, null, toInclude.ToArray());
       return await baseQuery.FirstAsync(x => x.Id == id);
