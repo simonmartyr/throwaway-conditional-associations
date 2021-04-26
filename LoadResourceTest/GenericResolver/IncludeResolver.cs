@@ -2,15 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.Extensions.Options;
 
 namespace LoadResourceTest.GenericResolver
 {
   public class IncludeResolver<T> : IIncludeResolver<T>
   {
     private readonly Dictionary<string, Expression<Func<T, object>>> Includes;
-    public IncludeResolver()
+    private readonly IOptions<IncludeResolverOptions> _options;
+    public IncludeResolver(IOptions<IncludeResolverOptions> options)
     {
-      Includes = getAttrs();
+      Includes = CreateIncludeDictionary();
+      _options = options;
     }
 
     public List<Expression<Func<T, object>>> Resolve(string[] list)
@@ -21,11 +24,13 @@ namespace LoadResourceTest.GenericResolver
         var hasKey = Includes.TryGetValue(i, out var expression);
         if (hasKey)
           toReturn.Add(expression);
+        else if (_options.Value.ThrowExceptions)
+          throw new KeyNotFoundException();
       }
       return toReturn;
     }
 
-    private Dictionary<string, Expression<Func<T, object>>> getAttrs()
+    private Dictionary<string, Expression<Func<T, object>>> CreateIncludeDictionary()
     {
       var parameter = Expression.Parameter(typeof(T));
       return typeof(T)
@@ -36,7 +41,8 @@ namespace LoadResourceTest.GenericResolver
         var property = Expression.Property(parameter, x);
         var conversion = Expression.Convert(property, typeof(object));
         return Expression.Lambda<Func<T, object>>(conversion, parameter);
-      }, StringComparer.OrdinalIgnoreCase);
+      }, 
+       _options.Value.CaseSensitive ? StringComparer.CurrentCulture : StringComparer.OrdinalIgnoreCase);
     }
   }
 }

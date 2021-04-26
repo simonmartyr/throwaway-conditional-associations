@@ -43,7 +43,7 @@ namespace LoadResourceTest
       typeof(ContractProfile),
       typeof(PetProfile),
       typeof(SecretProfile));
-      services.AddSingleton<IIncludeResolver<EmployeeDto>, IncludeResolver<EmployeeDto>>();
+      services.AddSingleton(typeof(IIncludeResolver<>),typeof(IncludeResolver<>));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
