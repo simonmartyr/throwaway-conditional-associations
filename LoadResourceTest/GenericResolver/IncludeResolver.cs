@@ -12,8 +12,8 @@ namespace LoadResourceTest.GenericResolver
     private readonly IOptions<IncludeResolverOptions> _options;
     public IncludeResolver(IOptions<IncludeResolverOptions> options)
     {
-      Includes = CreateIncludeDictionary();
       _options = options;
+      Includes = CreateIncludeDictionary();
     }
 
     public List<Expression<Func<T, object>>> Resolve(string[] list)
