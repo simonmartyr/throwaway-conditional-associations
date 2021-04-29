@@ -5,10 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using ExplicitExpansionCompanion;
 using LoadResourceTest.Database;
 using LoadResourceTest.DTOs;
-using LoadResourceTest.Entities;
-using LoadResourceTest.GenericResolver;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -22,9 +21,9 @@ namespace LoadResourceTest.Controllers
     private readonly ILogger<EmployeeController> _logger;
     private readonly EmployeeContext _dbContext;
     private readonly IMapper _mapper;
-    private readonly IIncludeResolver<EmployeeDto> _resolver;
+    private readonly IExpansionResolver<EmployeeDto> _resolver;
 
-    public EmployeeController(ILogger<EmployeeController> logger, EmployeeContext dbContext, IMapper mapper, IIncludeResolver<EmployeeDto> resolver)
+    public EmployeeController(ILogger<EmployeeController> logger, EmployeeContext dbContext, IMapper mapper, IExpansionResolver<EmployeeDto> resolver)
     {
       _logger = logger;
       _dbContext = dbContext;

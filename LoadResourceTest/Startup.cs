@@ -14,8 +14,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
 using LoadResourceTest.Automapper;
-using LoadResourceTest.GenericResolver;
-using LoadResourceTest.DTOs;
 
 namespace LoadResourceTest
 {
@@ -43,7 +41,7 @@ namespace LoadResourceTest
       typeof(ContractProfile),
       typeof(PetProfile),
       typeof(SecretProfile));
-      services.AddSingleton(typeof(IIncludeResolver<>),typeof(IncludeResolver<>));
+      services.AddExplicitExpansionCompanion();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
